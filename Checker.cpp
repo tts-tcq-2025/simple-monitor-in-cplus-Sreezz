@@ -50,5 +50,13 @@ bool batteryIsOk(float temperature, float soc, float chargeRate)
 int main() 
 {
   assert(batteryIsOk(25, 70, 0.7) == true);
-  assert(batteryIsOk(50, 85, 0) == false);
+  assert(batteryIsOk(50, 85, 0) == false);   //OOR temp and SOC
+  assert(batteryIsOk(0, 20, 0.8) == true); // Low Edge case
+  assert(batteryIsOk(45, 80, 0.8) == true); // High Edge case
+  assert(batteryIsOk(-1, 70, 0.7) == false); // Low temp
+  assert(batteryIsOk(46, 70, 0.7) == false); // High temp
+  assert(batteryIsOk(25, 10, 0.7) == false); // Low SOC
+  assert(batteryIsOk(25, 90, 0.7) == false); // High SOC
+  assert(batteryIsOk(25, 70, 0.9) == false); // High charge rate
+  assert(batteryIsOk(-5, 10, 1.0) == false); // All bad
 }
